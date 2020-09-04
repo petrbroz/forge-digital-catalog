@@ -3,8 +3,8 @@ import { GltfWriter, SvfReader } from 'forge-convert-utils';
 import { IDerivativeResourceChild, ManifestHelper, ModelDerivativeClient } from 'forge-server-utils';
 import { IAuthOptions } from 'forge-server-utils/dist/common';
 import fs from 'fs';
-import fsExtra from 'fs-extra';
-import gltfPipeline from 'gltf-pipeline';
+// import fsExtra from 'fs-extra';
+// import gltfPipeline from 'gltf-pipeline';
 import log4 from 'koa-log4';
 import path from 'path';
 import { ErrorHandler } from '../helpers/error-handler';
@@ -62,24 +62,24 @@ export class ArvrToolkit {
           const metadata = await reader.getMetadata();
           // captures units
           fs.writeFileSync(path.join(outputFolder, 'output', 'metadata.json'), JSON.stringify(metadata));
-          const guiDir = path.join(outputFolder, 'output', guid);
-          const gltfOptions = {
-            resourceDirectory: guiDir,
-            separate: false,
-            dracoOptions: { compressionLevel: 10 }
-          };
-          if (featureToggles[0].featureToggles.gltf_binary_output) {
-            const gltfToGlb = gltfPipeline.gltfToGlb;
-            const gltf = fsExtra.readJsonSync(path.join(guiDir, 'output.gltf'));
-            const glb = await gltfToGlb(gltf, gltfOptions);
-            fsExtra.writeFileSync(path.join(guiDir, 'output.glb'), glb.glb);
-          }
-          if (featureToggles[0].featureToggles.gltf_draco_compression) {
-            const processGltf = gltfPipeline.processGltf;
-            const gltf = fsExtra.readJsonSync(path.join(guiDir, 'output.gltf'));
-            const draco = await processGltf(gltf, gltfOptions);
-            fsExtra.writeJSONSync(path.join(guiDir, 'output-draco.gltf'), draco.gltf);
-          }
+          // const guiDir = path.join(outputFolder, 'output', guid);
+          // const gltfOptions = {
+          //   resourceDirectory: guiDir,
+          //   separate: false,
+          //   dracoOptions: { compressionLevel: 10 }
+          // };
+          // if (featureToggles[0].featureToggles.gltf_binary_output) {
+          //   const gltfToGlb = gltfPipeline.gltfToGlb;
+          //   const gltf = fsExtra.readJsonSync(path.join(guiDir, 'output.gltf'));
+          //   const glb = await gltfToGlb(gltf, gltfOptions);
+          //   fsExtra.writeFileSync(path.join(guiDir, 'output.glb'), glb.glb);
+          // }
+          // if (featureToggles[0].featureToggles.gltf_draco_compression) {
+          //   const processGltf = gltfPipeline.processGltf;
+          //   const gltf = fsExtra.readJsonSync(path.join(guiDir, 'output.gltf'));
+          //   const draco = await processGltf(gltf, gltfOptions);
+          //   fsExtra.writeJSONSync(path.join(guiDir, 'output-draco.gltf'), draco.gltf);
+          // }
         }
       }
     } catch (err) {
