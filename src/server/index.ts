@@ -107,6 +107,8 @@ app.on('ready', () => {
       logger.info('... Successfully initialized the database');
       logger.info(`... Listening at port ${port}`);
     });
+  }).catch(err => {
+    console.error('Admin controller error', err)
   });
 });
 
